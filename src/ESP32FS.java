@@ -399,12 +399,11 @@ public class ESP32FS implements Tool {
       System.out.println("[" + typefs + "] speed  : "+uploadSpeed);
       System.out.println("[" + typefs + "] mode   : "+flashMode);
       System.out.println("[" + typefs + "] freq   : "+flashFreq);
-      System.out.println(); 
-
+      System.out.println();
       if(esptool.getAbsolutePath().endsWith(".py"))
-        sysExec(new String[]{pythonCmd, esptool.getAbsolutePath(), "--chip", getChip(), "--baud", uploadSpeed, "--port", serialPort, "--before", "default_reset", "--after", "hard_reset", "write_flash", "-z", "--flash_mode", flashMode, "--flash_freq", flashFreq, "--flash_size", "detect", ""+spiStart, imagePath});
+        sysExec(new String[]{pythonCmd, esptool.getAbsolutePath(), "--chip", getChip(), "--port", serialPort, "--before", "default_reset", "--after", "hard_reset", "erase_flash"});
       else
-        sysExec(new String[]{esptool.getAbsolutePath(), "--chip", getChip(), "--baud", uploadSpeed, "--port", serialPort, "--before", "default_reset", "--after", "hard_reset", "write_flash", "-z", "--flash_mode", flashMode, "--flash_freq", flashFreq, "--flash_size", "detect", ""+spiStart, imagePath});
+        sysExec(new String[]{esptool.getAbsolutePath(), "--chip", getChip(), "--port", serialPort, "--before", "default_reset", "--after", "hard_reset", "erase_flash"});
     }
   }
 
@@ -491,9 +490,9 @@ public class ESP32FS implements Tool {
       System.out.println("Port: "+serialPort);
       System.out.println();
       if(esptool.getAbsolutePath().endsWith(".py"))
-        sysExec(new String[]{pythonCmd, esptool.getAbsolutePath(), "--chip", getChip(), "--port", serialPort, "--before", "default_reset", "--after", "hard_reset", "erase_flash"});
+        sysExec(new String[]{pythonCmd, esptool.getAbsolutePath(), "--chip", "esp32", "--port", serialPort, "--before", "default_reset", "--after", "hard_reset", "erase_flash"});
       else
-        sysExec(new String[]{esptool.getAbsolutePath(), "--chip", getChip(), "--port", serialPort, "--before", "default_reset", "--after", "hard_reset", "erase_flash"});
+        sysExec(new String[]{esptool.getAbsolutePath(), "--chip", "esp32", "--port", serialPort, "--before", "default_reset", "--after", "hard_reset", "erase_flash"});
     }
   }
 
